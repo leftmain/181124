@@ -1,0 +1,24 @@
+#!/bin/bash
+if [ "x$1" = x ]; then
+	git pull
+else
+	if [ "x$2" = x ]; then
+		git clone https://github.com/leftmain/$1.git
+	else
+		if [ "$2" = "." ] || [ "$2" = "./" ]; then
+			echo "remove all files here? (y/n)"
+			read ans
+			if [ "$ans" = "y" ]; then
+				chmod -R 777 .* *
+				rm -r * .*
+			else
+				exit 0
+			fi
+		fi
+		git clone https://github.com/leftmain/$1.git $2
+	fi
+	if [ "$1" = "home" ]; then
+		chmod -R 777 $2/.git
+		rm -r $2/.git
+	fi
+fi

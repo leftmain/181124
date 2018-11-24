@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ "x$1" = x ]; then
+	echo "usage: $0 name"
+else
+	git init
+	git add -A
+	git commit -m "init"
+	git remote add origin https://github.com/leftmain/$1.git
+	git push -u origin master
+fi
