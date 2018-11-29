@@ -6,11 +6,11 @@ template <class T, template <class> class Container>
 class Stack
 {
 private:
-	SNode <T, Container> * top, * bottom;
+	SNode <T, Container> * top;
 	int l;
 
 public:
-	Stack() { top = bottom = 0; l = 0; }
+	Stack() { top = 0; l = 0; }
 	~Stack() {
 		SNode <T, Container> * curr = top;
 		while (top) {
@@ -18,14 +18,13 @@ public:
 			top = top->get_next();
 			delete curr;
 		}
-		top = bottom = 0;
+		top = 0;
 		l = 0;
 	}
 
 	void push(SNode <T, Container> * n) { // add top
 		n->set_next(top);
 		top = n;
-		if (!bottom) bottom = n;
 		l++;
 	}
 	void pop() { // delete top
@@ -34,12 +33,10 @@ public:
 			top = top->get_next();
 			delete curr;
 			l--;
-			if (!top) bottom = top;
 		}
 	}
 	int size() const { return l; }
 	SNode <T, Container> * get_top() const { return top; }
-	SNode <T, Container> * get_bottom() const { return bottom; }
 
 	int read(FILE * fp, int n, int m) {
 		Container <T> curr;
@@ -71,12 +68,10 @@ public:
 		printf("Stack\n\
  -1 - return\n\
   0 - goto top menu\n\
-  1 - goto bottom menu\n\
-  2 - print Stack\n\
-  3 - print size\n\
-  4 - print top\n\
-  5 - print bottom\n\
-  6 - pop (delete top)\n\n");
+  1 - print Stack\n\
+  2 - print size\n\
+  3 - print top\n\
+  4 - pop (delete top)\n\n");
 	}
 
 	void menu() {
@@ -89,12 +84,10 @@ public:
 			switch(i) {
 				case -1: return;
 				case 0: top->menu(); help(); print(); break;
-				case 1: bottom->menu(); help(); print(); break;
-				case 2: print(); break;
-				case 3: printf("SIZE = %d\n", size()); break;
-				case 4: top->print(); break;
-				case 5: bottom->print(); break;
-				case 6: pop(); print(); break;
+				case 1: print(); break;
+				case 2: printf("SIZE = %d\n", size()); break;
+				case 3: top->print(); break;
+				case 4: pop(); print(); break;
 				default: return;
 			}
 		}
