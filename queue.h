@@ -82,9 +82,23 @@ public:
   3 - print size\n\
   4 - print head\n\
   5 - print tail\n\
-  6 - pop (delete head)\n\n");
+  6 - pop (delete head)\n\
+  7 - push (add to tail)\n\n");
 	}
 
+	void add() {
+		QNode <T> * node = new QNode <T>;
+		if (!node) {
+			printf("Not enough memory\n");
+			return;
+		}
+		printf("Print name and value\n");
+		if (node->read(stdin)) {
+			printf("error\n");
+			return;
+		}
+		push(node);
+	}
 	void menu() {
 		int i, k = system("clear");
 		help();
@@ -101,6 +115,7 @@ public:
 				case 4: head->print_(); break;
 				case 5: tail->print_(); break;
 				case 6: pop(); print(); break;
+				case 7: add(); print(); break;
 				default: return;
 			}
 		}
