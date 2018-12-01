@@ -140,44 +140,52 @@ public:
 		add(node, root);
 	}
 	void add_down() {
-		if (curr->get_down()) {
-			printf("down is not empty\n");
-			return;
-		}
 		TNode <T, T1, T2> * node = new TNode <T, T1, T2>;
 		if (!node) {
 			printf("Not enough memory\n");
 			return;
 		}
+		node->set_level(curr->get_down());
 		curr->set_down(node);
 	}
 	void add_level() {
-		if (curr->get_level()) {
-			printf("level is not empty\n");
-			return;
-		}
 		TNode <T, T1, T2> * node = new TNode <T, T1, T2>;
 		if (!node) {
 			printf("Not enough memory\n");
 			return;
 		}
+		node->set_level(curr->get_level());
 		curr->set_level(node);
 	}
 	void delete_down() {
-		if (!curr->get_down()->get_down() && !curr->get_down()->get_level()) {
-			delete curr->get_down();
-			curr->set_down(0);
-		} else {
-			printf("cannot\n");
+		if (!curr->get_down()) return;
+		if (curr->get_down()->get_down()) {
+			char c = 0;
+			while (c != 'y' && c != 'n') {
+				printf("curr->down has down. delete all down? [y/n]\n");
+				scanf("%c", &c);
+			}
+			if (c == 'y') delete_tree(curr->get_down()->get_down());
+			else return;
 		}
+		TNode <T, T1, T2> * node = curr->get_down();
+		curr->set_down(node->get_level());
+		delete node;
 	}
 	void delete_level() {
-		if (!curr->get_level()->get_down() && !curr->get_level()->get_level()) {
-			delete curr->get_level();
-			curr->set_level(0);
-		} else {
-			printf("cannot\n");
+		if (!curr->get_level()) return;
+		if (curr->get_level()->get_down()) {
+			char c = 0;
+			while (c != 'y' && c != 'n') {
+				printf("curr->level has down. delete all down? [y/n]\n");
+				scanf("%c", &c);
+			}
+			if (c == 'y') delete_tree(curr->get_level()->get_down());
+			else return;
 		}
+		TNode <T, T1, T2> * node = curr->get_level();
+		curr->set_level(node->get_level());
+		delete node;
 	}
 	void menu() {
 		int i;
