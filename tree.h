@@ -115,14 +115,15 @@ public:
 	void set_down(TNode <T, T1, T2> * d) { curr->set_down(d); }
 
 	void help() {
+		system("clear");
 		printf("Tree\n\
-  -1     - return\n\
-  0/1    - [root/curr] menu\n\
-  2/3/4  - print [Tree/root/curr]\n\
-  5/6/7  - goto [root/down/level]\n\
-  8/9/10 - add to [root/down/level]\n\
-  11/12  - delete [down/level]\n\
-  13     - delete down subtree\n\n");
+  -1      - return\n\
+  0/1     - [root/curr] menu\n\
+  2/3/4/5 - print [Tree/curr_subtree/root/curr]\n\
+  6/7/8   - goto [root/down/level]\n\
+  9/10/11 - add to [root/down/level]\n\
+  12/13   - delete [down/level]\n\
+  14      - delete down subtree\n\n");
 	}
 
 	void add_root() {
@@ -130,6 +131,11 @@ public:
 		if (!node) {
 			printf("Not enough memory\n");
 			return;
+		}
+		while (!node->get_top() ||
+				!node->get_top()->get_head() ||
+				!node->get_top()->get_head()->get_name()) {
+			node->menu(1);
 		}
 		add(node, root);
 	}
@@ -174,28 +180,29 @@ public:
 		}
 	}
 	void menu() {
-		int i, k = system("clear");
+		int i;
+		system("clear");
 		help();
 		print();
 		while (scanf("%d", &i) == 1) {
-			k = system("clear");
 			help();
 			switch(i) {
 				case -1: return;
 				case 0: root->menu(); help(); print(); break;
 				case 1: curr->menu(); help(); print(); break;
 				case 2: print(); break;
-				case 3: root->print(); break;
-				case 4: curr->print(); break;
-				case 5: goto_root(); print(); break;
-				case 6: if (curr->get_down()) goto_down(); else printf("curr->down = 0 now\n"); print(); break;
-				case 7: if (curr->get_level()) goto_level(); else printf("curr->level = 0 now\n"); print(); break;
-				case 8: add_root(); break;
-				case 9: add_down(); break;
-				case 10: add_level(); break;
-				case 11: delete_down(); print(); break;
-				case 12: delete_level(); print(); break;
-				case 13: delete_tree(curr->get_down()); curr->set_down(0); print(); break;
+				case 3: print(curr); break;
+				case 4: root->print(); break;
+				case 5: curr->print(); break;
+				case 6: goto_root(); print(); break;
+				case 7: if (curr->get_down()) goto_down(); else printf("curr->down = 0 now\n"); print(); break;
+				case 8: if (curr->get_level()) goto_level(); else printf("curr->level = 0 now\n"); print(); break;
+				case 9: add_root(); help(); print(); break;
+				case 10: add_down(); print(); break;
+				case 11: add_level(); print(); break;
+				case 12: delete_down(); print(); break;
+				case 13: delete_level(); print(); break;
+				case 14: delete_tree(curr->get_down()); curr->set_down(0); print(); break;
 				default: return;
 			}
 		}

@@ -115,6 +115,7 @@ public:
 		//printf("\n");
 	}
 	void help() {
+		system("clear");
 		printf("Stack\n\
  -1 - return\n\
   0 - goto top menu\n\
@@ -133,13 +134,15 @@ public:
 		}
 		push(node);
 	}
-	void menu() {
-		int i, k = system("clear");
+	void menu(int x = 0) {
+		int i;
+		system("clear");
 		help();
+		if (x) printf("Fill Stack with Queue with at least one Student\n");
 		print();
 		while (scanf("%d", &i) == 1) {
-			k = system("clear");
 			help();
+			if (x) printf("Fill Stack with Queue with at least one Student\n");
 			switch(i) {
 				case -1: return;
 				case 0: top->menu(); help(); print(); break;

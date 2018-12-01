@@ -18,6 +18,7 @@ public:
 			head = head->get_next();
 			delete curr;
 		}
+		head = 0;
 		l = 0;
 	}
 	void operator==(const Queue& rhs) {
@@ -95,6 +96,7 @@ public:
 	}
 
 	void help() {
+		system("clear");
 		printf("Queue\n\
  -1 - return\n\
   0 - goto head menu\n\
@@ -115,20 +117,20 @@ public:
 		}
 		printf("Print name and value\n");
 		if (node->read(stdin)) {
+			delete node;
 			printf("error\n");
 			return;
 		}
 		push(node);
 	}
 	void menu() {
-		int i, k = system("clear");
+		int i; system("clear");
 		help();
 		print();
 		while (scanf("%d", &i) == 1) {
-			k = system("clear");
 			help();
 			switch(i) {
-				case -1: k = system("clear"); return;
+				case -1: system("clear"); return;
 				case 0: head->menu(); help(); print(); break;
 				case 1: tail->menu(); help(); print(); break;
 				case 2: print(); break;
