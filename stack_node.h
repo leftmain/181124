@@ -1,7 +1,7 @@
 #include "queue.h"
 
-template <class T, template <class> class Container>
-class SNode : public Container <T>
+template <class T, template <class> class T1>
+class SNode : public T1 <T>
 {
 private:
 	SNode * next;

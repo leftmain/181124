@@ -1,6 +1,6 @@
-#include "queue_node.h"
+#include "queue_node.h" 
 
-#define MAX_PRINT 10
+#define MAX_QUEUE_PRINT 10
 
 template <class T>
 class Queue
@@ -8,6 +8,7 @@ class Queue
 private:
 	QNode <T> * head, * tail;
 	int l;
+
 public:
 	Queue() { head = tail = 0; l = 0; }
 	~Queue() {
@@ -23,6 +24,9 @@ public:
 		head = rhs.head;
 		tail = rhs.tail;
 		l = rhs.l;
+	}
+	int operator<(const Queue& b) {
+		return (*head < *b.head);
 	}
 	void clear() { head = tail = 0; l = 0; }
 
@@ -63,14 +67,31 @@ public:
 		return 0;
 	}
 
+	int number_len(int a) {
+		int k = 0;
+		if (a == 0) return 1;
+		while (a) {
+			k++;
+			a /= 10;
+		}
+		return k;
+	}
+	int len() {
+		int s = 0;
+		QNode <T> * curr = head;
+		while (curr) {
+			s += strlen(curr->get_name()) + 4 + number_len(curr->get_value());
+			curr = curr->get_next();
+		}
+		return s;
+	}
 	void print() {
-		int i = 0, n = (l > MAX_PRINT) ? MAX_PRINT : l;
+		int i = 0, n = (l > MAX_QUEUE_PRINT) ? MAX_QUEUE_PRINT : l;
 		QNode <T> * curr = head;
 		for (; i < n; i++) {
 			curr->print();
 			curr = curr->get_next();
 		}
-		printf("\n");
 	}
 
 	void help() {
