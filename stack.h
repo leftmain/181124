@@ -1,6 +1,6 @@
 #include "stack_node.h"
 
-#define MAX_STACK_PRINT 10
+#define MAX_STACK_PRINT 3
 #define TAB "      "
 
 template <class T, template <class> class T1>
@@ -65,9 +65,10 @@ public:
 	}
 
 	int max_len() {
-		int max = 0, i = 0;
+		int max = 0, i = 0, j = 0;
 		SNode <T, T1> * curr = top;
-		while (curr) {
+		while (curr && j < MAX_STACK_PRINT) {
+			j++;
 			i = curr->len();
 			if (i > max) max = i;
 			curr = curr->get_next();

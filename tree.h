@@ -160,7 +160,7 @@ public:
 	void delete_down() {
 		if (!curr->get_down()) return;
 		if (curr->get_down()->get_down()) {
-			char c = 0;
+			char c = 1;
 			while (c != 'y' && c != 'n') {
 				printf("curr->down has down. delete all down? [y/n]\n");
 				scanf("%c", &c);
@@ -175,7 +175,7 @@ public:
 	void delete_level() {
 		if (!curr->get_level()) return;
 		if (curr->get_level()->get_down()) {
-			char c = 0;
+			char c = 1;
 			while (c != 'y' && c != 'n') {
 				printf("curr->level has down. delete all down? [y/n]\n");
 				scanf("%c", &c);

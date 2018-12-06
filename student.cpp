@@ -9,14 +9,14 @@ void Student::help() {
 }
 
 void Student::menu() {
-	int i, k = system("clear");
+	int i; system("clear");
 	help();
 	print_();
 	while (scanf("%d", &i) == 1) {
-		k = system("clear");
+		system("clear");
 		help();
 		switch(i) {
-			case -1: k = system("clear"); return;
+			case -1: system("clear"); return;
 			case 0: print_(); break;
 			case 1: printf("%s\n", name);
 			case 2: printf("%d\n", value);

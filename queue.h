@@ -1,6 +1,6 @@
 #include "queue_node.h" 
 
-#define MAX_QUEUE_PRINT 10
+#define MAX_QUEUE_PRINT 3
 
 template <class T>
 class Queue
@@ -70,6 +70,7 @@ public:
 
 	int number_len(int a) {
 		int k = 0;
+		if (a < 0) k++;
 		if (a == 0) return 1;
 		while (a) {
 			k++;
@@ -78,9 +79,10 @@ public:
 		return k;
 	}
 	int len() {
-		int s = 0;
+		int s = 0, j = 0;
 		QNode <T> * curr = head;
-		while (curr) {
+		while (curr && j < MAX_QUEUE_PRINT) {
+			j++;
 			s += strlen(curr->get_name()) + 4 + number_len(curr->get_value());
 			curr = curr->get_next();
 		}
