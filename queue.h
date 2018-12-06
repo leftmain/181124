@@ -96,6 +96,15 @@ public:
 			curr = curr->get_next();
 		}
 	}
+	void print_() {
+		int i = 0, n = (l > MAX_QUEUE_PRINT) ? MAX_QUEUE_PRINT : l;
+		QNode <T> * curr = head;
+		for (; i < n; i++) {
+			curr->print();
+			curr = curr->get_next();
+		}
+		printf("\n");
+	}
 
 	void help() {
 		system("clear");
@@ -113,44 +122,43 @@ public:
 
 	void add() {
 		QNode <T> * node = new QNode <T>;
-		int res = 0;
-		char c = 0;
 		if (!node) {
 			printf("Not enough memory\n");
 			return;
 		}
 		printf("Print name and value\n");
-		while ((res = node->read(stdin))) {
-			printf("error %d\nTry print again?[y/n]\n", res);
-			while (scanf("%c", &c) != 1) {
-				printf("(print 'y' for yes and any other for no)\n");
-			}
-			if (c != 'y') {
-				delete node;
-				return;
-			}
+		if (node->read(stdin)) {
+			char buf[LEN];
+			scanf("%s", buf);
+			delete node;
+			return;
 		}
 		push(node);
 	}
 	void menu() {
-		int i;
+		int i, k = 0;
 		help();
-		print();
+		print_();
 		while (scanf("%d", &i) == 1) {
+			k = 0;
 			switch(i) {
 				case -1: system("clear"); return;
 				case 0: head->menu(); break;
 				case 1: tail->menu(); break;
 				case 2: break;
+//				case 3: printf("SIZE = %d\n\n", size()); break;
+//				case 4: head->print_(); printf("\n"); break;
+//				case 5: tail->print_(); printf("\n"); break;
+				case 6: pop(); break;
+				case 7: add(); break;
+			}
+			help();
+			print_();
+			switch(i) {
 				case 3: printf("SIZE = %d\n\n", size()); break;
 				case 4: head->print_(); printf("\n"); break;
 				case 5: tail->print_(); printf("\n"); break;
-				case 6: pop(); break;
-				case 7: add(); break;
-				default: return;
 			}
-			help();
-			print();
 		}
 	}
 };
