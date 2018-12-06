@@ -1,27 +1,39 @@
 #include "student.h"
 
 void Student::help() {
+	system("clear");
 	printf("Student\n\
  -1 - return\n\
   0 - print student\n\
-  1 - print name\n\
-  2 - print value\n\n");
+  1 - change student\n\n");
+	print_();
+}
+
+void Student::add_new() {
+	char buff[LEN];
+	int k;
+	printf("print name and value\n");
+	while (scanf("%s%d", buff, &k) != 2) {
+		printf("print name and value\n");
+	}
+	destroy();
+	if ((k = init(buff, k))) {
+		printf("error %d\n", k);
+		return;
+	}
 }
 
 void Student::menu() {
-	int i; system("clear");
+	int i;
 	help();
-	print_();
 	while (scanf("%d", &i) == 1) {
-		system("clear");
-		help();
 		switch(i) {
-			case -1: system("clear"); return;
-			case 0: print_(); break;
-			case 1: printf("%s\n", name);
-			case 2: printf("%d\n", value);
+			case -1: return;
+			case 0: break;
+			case 1: add_new(); break;
 			default: return;
 		}
+		help();
 	}
 }
 

@@ -113,36 +113,44 @@ public:
 
 	void add() {
 		QNode <T> * node = new QNode <T>;
+		int res = 0;
+		char c = 0;
 		if (!node) {
 			printf("Not enough memory\n");
 			return;
 		}
 		printf("Print name and value\n");
-		if (node->read(stdin)) {
-			delete node;
-			printf("error\n");
-			return;
+		while ((res = node->read(stdin))) {
+			printf("error %d\nTry print again?[y/n]\n", res);
+			while (scanf("%c", &c) != 1) {
+				printf("(print 'y' for yes and any other for no)\n");
+			}
+			if (c != 'y') {
+				delete node;
+				return;
+			}
 		}
 		push(node);
 	}
 	void menu() {
-		int i; system("clear");
+		int i;
 		help();
 		print();
 		while (scanf("%d", &i) == 1) {
-			help();
 			switch(i) {
 				case -1: system("clear"); return;
-				case 0: head->menu(); help(); print(); break;
-				case 1: tail->menu(); help(); print(); break;
-				case 2: print(); break;
-				case 3: printf("SIZE = %d\n", size()); break;
-				case 4: head->print_(); break;
-				case 5: tail->print_(); break;
-				case 6: pop(); print(); break;
-				case 7: add(); print(); break;
+				case 0: head->menu(); break;
+				case 1: tail->menu(); break;
+				case 2: break;
+				case 3: printf("SIZE = %d\n\n", size()); break;
+				case 4: head->print_(); printf("\n"); break;
+				case 5: tail->print_(); printf("\n"); break;
+				case 6: pop(); break;
+				case 7: add(); break;
 				default: return;
 			}
+			help();
+			print();
 		}
 	}
 };

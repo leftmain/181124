@@ -2,7 +2,7 @@
 #include <time.h>
 #include "tree_node.h"
 
-#define MAX_TREE_LEVEL 3
+#define MAX_TREE_LEVEL 2
 
 template <class T, template <class> class T1,
 template <class, template <class> class> class T2>
@@ -22,7 +22,7 @@ private:
 	}
 public:
 	Tree() { root = curr = 0; }
-	~Tree() { delete_tree(root); }
+	~Tree() { if (root) delete_tree(root); root = curr = 0; }
 	int read(FILE * fp, int n, int m, int k) {
 		T2 <T, T1> curr;
 		TNode <T, T1, T2> * node;
@@ -123,7 +123,8 @@ public:
   6/7/8   - goto [root/down/level]\n\
   9/10/11 - add to [root/down/level]\n\
   12/13   - delete [down/level]\n\
-  14      - delete down subtree\n\n");
+  14/15   - delete [down subtree/all tree]\n\
+  16      - change curr\n\n");
 	}
 
 	void add_root() {
@@ -187,6 +188,11 @@ public:
 		curr->set_level(node->get_level());
 		delete node;
 	}
+	void change_curr() {
+		curr->delete_stack();
+		curr->set_top(0);
+		curr->set_l(0);
+	}
 	void menu() {
 		int i;
 		system("clear");
@@ -196,21 +202,23 @@ public:
 			help();
 			switch(i) {
 				case -1: return;
-				case 0: root->menu(); help(); print(); break;
-				case 1: curr->menu(); help(); print(); break;
+				case 0: if (root) root->menu(); help(); print(); break;
+				case 1: if (curr) curr->menu(); help(); print(); break;
 				case 2: print(); break;
-				case 3: print(curr); break;
-				case 4: root->print(); break;
-				case 5: curr->print(); break;
-				case 6: goto_root(); print(); break;
-				case 7: if (curr->get_down()) goto_down(); else printf("curr->down = 0 now\n"); print(); break;
-				case 8: if (curr->get_level()) goto_level(); else printf("curr->level = 0 now\n"); print(); break;
+				case 3: if (curr) print(curr); break;
+				case 4: if (root) root->print(); break;
+				case 5: if (curr) curr->print(); break;
+				case 6: if (root) goto_root(); print(); break;
+				case 7: if (curr) { if (curr->get_down()) goto_down(); else printf("curr->down = 0 now\n"); print(); } break;
+				case 8: if (curr) { if (curr->get_level()) goto_level(); else printf("curr->level = 0 now\n"); print(); } break;
 				case 9: add_root(); help(); print(); break;
-				case 10: add_down(); print(); break;
-				case 11: add_level(); print(); break;
+				case 10: if (curr) add_down(); print(); break;
+				case 11: if (curr) add_level(); print(); break;
 				case 12: delete_down(); print(); break;
 				case 13: delete_level(); print(); break;
 				case 14: delete_tree(curr->get_down()); curr->set_down(0); print(); break;
+				case 15: delete_tree(root); root = curr = 0; print(); break;
+				case 16: change_curr(); print(); break;
 				default: return;
 			}
 		}

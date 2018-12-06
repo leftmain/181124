@@ -12,15 +12,14 @@ private:
 
 public:
 	Stack() { top = 0; l = 0; }
-	~Stack() {
+	~Stack() { delete_stack(); top = 0; l = 0; }
+	void delete_stack() {
 		SNode <T, T1> * curr = top;
 		while (top) {
 			curr = top;
 			top = top->get_next();
 			delete curr;
 		}
-		top = 0;
-		l = 0;
 	}
 	void operator==(const Stack& rhs) {
 		top = rhs.top;
@@ -46,6 +45,8 @@ public:
 	}
 	int size() const { return l; }
 	SNode <T, T1> * get_top() const { return top; }
+	void set_top(SNode <T, T1> * b) { top = b; }
+	void set_l(int len) { l = len; }
 
 	int read(FILE * fp, int n, int m) {
 		T1 <T> curr;

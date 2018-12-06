@@ -70,6 +70,7 @@ public:
 		value = 0;
 	}
 
+	void add_new();
 	void print();
 	void print_();
 	void help();
