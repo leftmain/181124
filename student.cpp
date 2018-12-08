@@ -5,7 +5,8 @@ void Student::help() {
 	printf("Student\n\
  -1 - return\n\
   0 - print student\n\
-  1 - change student\n\n");
+  1 - erase\n\
+  2 - change student\n\n");
 	print_();
 }
 
@@ -30,7 +31,8 @@ void Student::menu() {
 		switch(i) {
 			case -1: return;
 			case 0: break;
-			case 1: add_new(); break;
+			case 1: destroy();
+			case 2: add_new(); break;
 			default: return;
 		}
 		help();
