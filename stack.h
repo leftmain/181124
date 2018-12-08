@@ -128,7 +128,8 @@ public:
   3 - print top\n\
   4 - pop (delete top)\n\
   5 - push (add to top)\n\
-  6 - delete all stack\n\n");
+  6 - delete all stack\n\
+  7 - push n empty elements\n\n");
 	}
 
 	void add() {
@@ -138,6 +139,20 @@ public:
 			return;
 		}
 		push(node);
+	}
+	void add_n() {
+		SNode <T, T1> * node = 0;
+		int n = 0, i = 0;
+		printf("print n\n");
+		if (scanf("%d", &n) != 1) return;
+		for (i = 0; i < n; i++) {
+			node = new SNode <T, T1>;
+			if (!node) {
+				printf("mem error\n");
+				return;
+			}
+			push(node);
+		}
 	}
 	void menu(int x = 0) {
 		int i;
@@ -157,6 +172,7 @@ public:
 				case 4: pop(); print(); break;
 				case 5: add(); print(); break;
 				case 6: delete_stack(); break;
+				case 7: add_n(); print(); break;
 				default: return;
 			}
 		}
