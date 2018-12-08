@@ -86,7 +86,8 @@ public:
 		QNode <T> * curr = head;
 		while (curr && j < MAX_QUEUE_PRINT) {
 			j++;
-			s += strlen(curr->get_name()) + 4 + number_len(curr->get_value());
+			if (!curr->get_name()) s += 11;
+			else s += strlen(curr->get_name()) + 4 + number_len(curr->get_value());
 			curr = curr->get_next();
 		}
 		return s;
