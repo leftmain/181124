@@ -159,6 +159,7 @@ public:
 		curr->set_level(node);
 	}
 	void delete_down() {
+		if (!curr) return;
 		if (!curr->get_down()) return;
 		if (curr->get_down()->get_down()) {
 			char c = 1;
@@ -174,6 +175,7 @@ public:
 		delete node;
 	}
 	void delete_level() {
+		if (!curr) return;
 		if (!curr->get_level()) return;
 		if (curr->get_level()->get_down()) {
 			char c = 1;
@@ -189,6 +191,7 @@ public:
 		delete node;
 	}
 	void change_curr() {
+		if (!curr) return;
 		curr->delete_stack();
 		curr->set_top(0);
 		curr->set_l(0);
@@ -216,7 +219,7 @@ public:
 				case 11: if (curr) add_level(); print(); break;
 				case 12: delete_down(); print(); break;
 				case 13: delete_level(); print(); break;
-				case 14: delete_tree(curr->get_down()); curr->set_down(0); print(); break;
+				case 14: if (curr) { delete_tree(curr->get_down()); curr->set_down(0); } print(); break;
 				case 15: delete_tree(root); root = curr = 0; print(); break;
 				case 16: change_curr(); print(); break;
 				default: return;

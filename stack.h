@@ -20,6 +20,7 @@ public:
 			top = top->get_next();
 			delete curr;
 		}
+		l = 0;
 	}
 	void operator==(const Stack& rhs) {
 		top = rhs.top;
@@ -97,6 +98,7 @@ public:
 		//printf("\n");
 	}
 	void print(int level = 0) {
+		if (!top) return;
 		int i = 0, j = 0, n = (l > MAX_STACK_PRINT) ? MAX_STACK_PRINT : l;
 		int maxlen = max_len();
 		SNode <T, T1> * curr = top;
@@ -125,7 +127,8 @@ public:
   2 - print size\n\
   3 - print top\n\
   4 - pop (delete top)\n\
-  5 - push (add to top)\n\n");
+  5 - push (add to top)\n\
+  6 - delete all stack\n\n");
 	}
 
 	void add() {
@@ -147,12 +150,13 @@ public:
 			if (x) printf("Fill Stack with Queue with at least one Student\n");
 			switch(i) {
 				case -1: return;
-				case 0: top->menu(); help(); print(); break;
+				case 0: if (top) top->menu(); help(); print(); break;
 				case 1: print(); break;
 				case 2: printf("SIZE = %d\n", size()); break;
-				case 3: top->print(); break;
+				case 3: if (top) top->print(); break;
 				case 4: pop(); print(); break;
 				case 5: add(); print(); break;
+				case 6: delete_stack(); break;
 				default: return;
 			}
 		}

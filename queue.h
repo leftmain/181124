@@ -89,6 +89,7 @@ public:
 		return s;
 	}
 	void print() {
+		if (!head) return;
 		int i = 0, n = (l > MAX_QUEUE_PRINT) ? MAX_QUEUE_PRINT : l;
 		QNode <T> * curr = head;
 		for (; i < n; i++) {
@@ -97,6 +98,7 @@ public:
 		}
 	}
 	void print_() {
+		if (!head) return;
 		int i = 0, n = (l > MAX_QUEUE_PRINT) ? MAX_QUEUE_PRINT : l;
 		QNode <T> * curr = head;
 		for (; i < n; i++) {
@@ -143,8 +145,8 @@ public:
 			k = 0;
 			switch(i) {
 				case -1: system("clear"); return;
-				case 0: head->menu(); break;
-				case 1: tail->menu(); break;
+				case 0: if (head) head->menu(); break;
+				case 1: if (tail) tail->menu(); break;
 				case 2: break;
 //				case 3: printf("SIZE = %d\n\n", size()); break;
 //				case 4: head->print_(); printf("\n"); break;
@@ -156,8 +158,8 @@ public:
 			print_();
 			switch(i) {
 				case 3: printf("SIZE = %d\n\n", size()); break;
-				case 4: head->print_(); printf("\n"); break;
-				case 5: tail->print_(); printf("\n"); break;
+				case 4: if (head) head->print_(); printf("\n"); break;
+				case 5: if (tail) tail->print_(); printf("\n"); break;
 			}
 		}
 	}
