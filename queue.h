@@ -9,18 +9,20 @@ private:
 	QNode <T> * head, * tail;
 	int l;
 
-public:
-	Queue() { head = tail = 0; l = 0; }
-	~Queue() {
+	void destroy() {
 		QNode <T> * curr = 0;
 		while (head) {
 			curr = head;
 			head = head->get_next();
 			delete curr;
 		}
-		head = 0;
+		head = tail = 0;
 		l = 0;
 	}
+
+public:
+	Queue() { head = tail = 0; l = 0; }
+	~Queue() { destroy(); }
 	void operator==(const Queue& rhs) {
 		head = rhs.head;
 		tail = rhs.tail;
@@ -42,6 +44,7 @@ public:
 		if (head) {
 			head = head->get_next();
 			delete curr;
+			if (!head) tail = 0;
 			l--;
 		}
 	}
@@ -119,7 +122,9 @@ public:
   4 - print head\n\
   5 - print tail\n\
   6 - pop (delete head)\n\
-  7 - push (add to tail)\n\n");
+  7 - push (add to tail)\n\
+  8 - push n empty elements\n\
+  9 - delete all queue\n\n");
 	}
 
 	void add() {
@@ -137,6 +142,20 @@ public:
 		}
 		push(node);
 	}
+	void add_n() {
+		QNode <T> * node = 0;
+		int n = 0, i = 0;
+		printf("print n\n");
+		if (scanf("%d", &n) != 1) return;
+		for (i = 0; i < n; i++) {
+			node = new QNode <T>;
+			if (!node) {
+				printf("mem error\n");
+				return;
+			}
+			push(node);
+		}
+	}
 	void menu() {
 		int i, k = 0;
 		help();
@@ -153,6 +172,8 @@ public:
 //				case 5: tail->print_(); printf("\n"); break;
 				case 6: pop(); break;
 				case 7: add(); break;
+				case 8: add_n(); break;
+				case 9: destroy(); break;
 			}
 			help();
 			print_();
