@@ -31,7 +31,7 @@ void Student::menu() {
 		switch(i) {
 			case -1: return;
 			case 0: break;
-			case 1: destroy();
+			case 1: destroy(); break;
 			case 2: add_new(); break;
 			default: return;
 		}
